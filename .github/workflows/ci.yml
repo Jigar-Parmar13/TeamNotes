@@ -1,0 +1,47 @@
+name: Ci pipeline
+
+on:
+  push:
+    branches: [ 'feature/devops' ]
+
+  pull_request:
+    branches: [ 'main' ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@4
+
+      - name: setup Node.js
+        uses: actions/setup-node@4
+        with:
+          node-version: 18
+
+      # Build backend
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
+
+      # Frontend build
+
+      - name: Install frontend dependencies and build
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+
+      # Docker build backend 
+      - name: Build backend docker image
+        run: docker build -t teamnotes-backend .
+
+      # Docker build frontend
+      - name: Build frontend docker image
+        run: docker build -t teamnotes-frontend .
+
+        
