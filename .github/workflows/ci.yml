@@ -13,10 +13,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
 
       - name: setup Node.js
-        uses: actions/setup-node@4
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
@@ -44,4 +44,3 @@ jobs:
       - name: Build frontend docker image
         run: docker build -t teamnotes-frontend .
 
-        
