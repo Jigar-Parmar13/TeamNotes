@@ -38,9 +38,9 @@ jobs:
 
       # Docker build backend 
       - name: Build backend docker image
-        run: docker build -t teamnotes-backend .
+        run: docker build -t teamnotes-backend ./backend
 
       # Docker build frontend
       - name: Build frontend docker image
-        run: docker build -t teamnotes-frontend .
+        run: docker build -t teamnotes-frontend ./frontend
 
