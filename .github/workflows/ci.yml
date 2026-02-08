@@ -50,4 +50,5 @@ jobs:
       # Docker build frontend
       - name: Build frontend docker image
         run: docker build -t teamnotes-frontend ./frontend
+
         
