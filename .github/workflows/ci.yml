@@ -2,8 +2,10 @@ name: Ci pipeline
 
 on:
   push:
-    branches: [ 'feature/devops' ]
-
+    branches:
+      - main
+      - feature/devops
+      
   pull_request:
     branches: [ 'main' ]
 
