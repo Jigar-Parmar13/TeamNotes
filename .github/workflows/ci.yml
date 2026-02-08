@@ -35,6 +35,12 @@ jobs:
           npm install
           npm run build
 
+      # sonarCloud 
+
+      - name: sonarCloud scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       # Docker build backend 
       - name: Build backend docker image
