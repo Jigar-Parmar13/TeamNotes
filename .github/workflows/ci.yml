@@ -1,13 +1,14 @@
-name: Ci pipeline
+name: CI Pipeline
 
 on:
   push:
     branches:
       - main
       - feature/devops
-    
+
   pull_request:
-    branches: [ 'main' ]
+    branches:
+      - main
 
 jobs:
   build:
@@ -15,39 +16,35 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
 
-      - name: setup Node.js
-        uses: actions/setup-node@4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # Build backend
-
+      # ---------- Backend ----------
       - name: Install backend dependencies
         run: |
           cd backend
           npm install
 
-      # Frontend build
-
+      # ---------- Frontend ----------
       - name: Install frontend dependencies and build
         run: |
           cd frontend
           npm install
           npm run build
 
-      # sonarCloud 
-
-      - name: sonarCloud scan
+      # ---------- SonarCloud ----------
+      - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      # Docker build backend 
-      - name: Build backend docker image
-        run: docker build -t teamnotes-backend .
+      # ---------- Docker ----------
+      - name: Build backend Docker image
+        run: docker build -t teamnotes-backend ./backend
 
-      # Docker build frontend
-      - name: Build frontend docker image
-        run: docker build -t teamnotes-frontend .
+      - name: Build frontend Docker image
+        run: docker build -t teamnotes-frontend ./frontend
