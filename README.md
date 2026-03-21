@@ -1,4 +1,4 @@
-# 🗒️ TeamNotes — DevOps CI/CD Project
+# 🗒️ TeamNotes — DevSecOps CI/CD Project
 
 <div align="center">
 
@@ -8,7 +8,7 @@
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Jigar-Parmar13_TeamNotes&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Jigar-Parmar13_TeamNotes)
 [![Docker Pulls](https://img.shields.io/docker/pulls/jigar1311/teamnotes-backend)](https://hub.docker.com/r/jigar1311/teamnotes-backend)
 
-**A full-stack Notes application with a production-grade DevOps pipeline**
+**A full-stack Notes application with a production-grade DevSecOps pipeline**
 
 [Pipeline](#-cicd-pipeline) • [Tech Stack](#-tech-stack) • [Run Locally](#-run-locally) • [Docker](#-docker) • [Project Structure](#-project-structure)
 
@@ -18,7 +18,7 @@
 
 ## 📌 Overview
 
-TeamNotes is a full-stack Notes application built with **Node.js + Express** backend and **React + Vite** frontend. The focus of this project is implementing a **complete industry-level DevOps pipeline** — from code quality checks to automated container deployments.
+TeamNotes is a full-stack Notes application built with **Node.js + Express** backend and **React + Vite** frontend. The focus of this project is implementing a **complete industry-level DevSecOps pipeline** — integrating security scanning (SonarQube + Trivy) directly into the CI/CD workflow so security is never an afterthought.
 
 ---
 
@@ -61,7 +61,7 @@ Code Push to GitHub
 | CI/CD | GitHub Actions | Automated 3-job pipeline |
 | Code Quality | SonarCloud | Quality gate, bug detection |
 | Security Scanning | Trivy | CVE scanning on Docker images |
-| Orchestration | Kubernetes (Minikube) | Local K8s deployment practice |
+
 
 ---
 
@@ -95,14 +95,6 @@ docker build -t teamnotes-frontend ./frontend
 docker run -d -p 80:80 --name teamnotes-frontend teamnotes-frontend
 ```
 
-### Option 3 — Docker Compose (runs everything together)
-
-```bash
-docker compose up --build
-# Backend  → http://localhost:3000
-# Frontend → http://localhost:80
-```
-
 ---
 
 ## 🐳 Docker
@@ -128,29 +120,6 @@ docker run -d -p 80:80 jigar1311/teamnotes-frontend:latest
 
 ---
 
-## ☸️ Kubernetes (Local — Minikube)
-
-```bash
-# Start Minikube
-minikube start
-
-# Deploy everything
-kubectl apply -f k8s/
-
-# Check pods are running
-kubectl get pods -n teamnotes
-
-# Access the app
-minikube service teamnotes-backend-svc -n teamnotes
-
-# Scale up
-kubectl scale deployment teamnotes-backend --replicas=3 -n teamnotes
-
-# Rollback if needed
-kubectl rollout undo deployment/teamnotes-backend -n teamnotes
-```
-
----
 
 ## 📁 Project Structure
 
@@ -173,13 +142,7 @@ TeamNotes/
 │   ├── nginx.conf              # React Router config
 │   ├── .dockerignore
 │   └── package.json
-├── k8s/
-│   ├── namespace.yml
-│   ├── deployment.yml          # 2 replicas, rolling update
-│   ├── service.yml
-│   └── ingress.yml
 ├── sonar-project.properties    # SonarCloud config
-├── docker-compose.yml          # Local multi-service setup
 └── README.md
 ```
 
@@ -207,25 +170,25 @@ TeamNotes/
 
 ---
 
-## 🎯 DevOps Concepts Demonstrated
+## 🎯 DevSecOps Concepts Demonstrated
 
 - **Multi-stage Docker builds** — separate build and runtime stages
 - **Layer caching** — `package.json` copied before source for faster CI
 - **Non-root containers** — security best practice
-- **Health checks** — Kubernetes liveness and readiness probes
-- **Rolling updates** — zero-downtime deployments in Kubernetes
-- **Immutable image tags** — Git SHA tags for precise rollbacks
-- **Quality gates** — automated code quality enforcement
-- **Secret management** — GitHub Secrets, no hardcoded credentials
+- **Health checks** — container self-reports health status
+- **Quality gates** — SonarQube blocks bad code automatically
+- **Secret management** — GitHub Secrets, zero hardcoded credentials
+- **Shift-left security** — security runs BEFORE deployment, not after
+- **CVE scanning** — Trivy catches vulnerabilities before they reach production
 
 ---
 
 ## 👤 Author
 
-**Jigar Parmar** — Learning DevOps
+**Jigar Parmar** — Learning DevSecOps
 
 [![GitHub](https://img.shields.io/badge/GitHub-Jigar--Parmar13-black?logo=github)](https://github.com/Jigar-Parmar13)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](https://linkedin.com/in/YOUR_LINKEDIN)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Jigar%20Parmar-blue?logo=linkedin)](https://www.linkedin.com/in/jigar-parmar-95817928a/)
 [![DockerHub](https://img.shields.io/badge/DockerHub-jigar1311-blue?logo=docker)](https://hub.docker.com/u/jigar1311)
 
 ---
