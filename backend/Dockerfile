@@ -1,0 +1,39 @@
+# ===============================================
+#           Stage 1: Build backends
+# ===============================================
+
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm ci
+
+COPY src ./src
+
+# ===============================================
+#           Stage 2: production stage
+# ===============================================
+
+FROM node:18-alpine AS production
+
+RUN addgroup -S appgroup  && adduser -S appuser -G appgroup
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm ci --only=production && npm cache clean --force
+
+COPY --from=builder /app/src ./src
+
+COPY data ./data
+
+USER appuser
+
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=3s CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
+
+CMD ["node" , "src/server.js"]
