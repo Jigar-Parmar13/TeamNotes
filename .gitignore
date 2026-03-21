@@ -1,0 +1,14 @@
+# DevOps / CI/CD operations
+.github/
+sonar-project.properties
+backend/Dockerfile
+frontend/Dockerfile
+docker-compose.yml
+
+# Backend specifics
+backend/node_modules/
+
+# Frontend specifics
+frontend/node_modules/
+frontend/dist/
+frontend/build/
