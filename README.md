@@ -108,7 +108,11 @@ docker run -d -p 3000:3000 jigar1311/teamnotes-backend:latest
 
 # Frontend
 docker pull jigar1311/teamnotes-frontend:latest
-docker run -d -p 80:80 jigar1311/teamnotes-frontend:latest
+docker run -d -p 3001:80 jigar1311/teamnotes-frontend:latest
+
+# Docker-compose
+docker compose up --build
+docker compose down
 ```
 
 ### Image Details
