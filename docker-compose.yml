@@ -45,8 +45,4 @@ networks:
   teamnotes-network:
     driver: bridge
 
-    
-      
-      
-      
       
