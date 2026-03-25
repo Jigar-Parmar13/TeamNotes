@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teamnotes-backend
+  namespace: teamnotes
+  labels:
+    app: teamnotes-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: teamnotes-backend
+  template:
+    metadata:
+      labels:
+        app: teamnotes-backend
+    spec:
+      containers:
+        - name: backend
+          image: jigar1311/teamnotes-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PORT
+              value: "3000"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
