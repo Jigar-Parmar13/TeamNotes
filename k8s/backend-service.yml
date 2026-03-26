@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: teamnotes-backend
+  namespace: teamnotes
+  labels:
+    app: teamnotes-backend
+
+spec:
+  selector:
+    app: teamnotes-backend
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+
+  type: ClusterIP
