@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: teamnotes-frontend
+  namespace: teamnotes
+  labels:
+    app: teamnotes-frontend
+
+spec:
+  selector:
+    app: teamnotes-frontend
+  ports:
+    - protocol: TCP
+      port: 3001
+      targetPort: 80
+  type: NodePort
+  
